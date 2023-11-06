@@ -4,15 +4,17 @@ package com.example.proyectobases.model;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS )
 @Getter
 @Setter
-//@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Inheritance(strategy = InheritanceType.JOINED)
+
 public class Usuario implements Serializable {
     @Id
     @EqualsAndHashCode.Include

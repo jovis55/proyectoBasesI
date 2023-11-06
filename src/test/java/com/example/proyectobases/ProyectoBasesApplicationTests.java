@@ -7,9 +7,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
 @Sql("classpath:dataset.sql")
-@Transactional
-
-
 class ProyectoBasesApplicationTests {
 
     @Test
