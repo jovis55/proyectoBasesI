@@ -36,7 +36,7 @@ public class Curso implements Serializable {
     private List<Horario> horarios;
 
     @OneToMany(mappedBy = "curso")
-    private List<GrupoCurso> Grupocursos;
+    private List<GrupoCurso> grupoCursos;
 
     @OneToOne(mappedBy = "curso")
     private PlanEstudio planEstudio;

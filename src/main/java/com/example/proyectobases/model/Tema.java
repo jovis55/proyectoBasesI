@@ -8,7 +8,8 @@ import lombok.Setter;
 import java.util.List;
 public enum Tema {
 
-    Biologia,
-    Matematicas
+    BIOLOGIA,
+    MATEMATICAS,
+    HISTORIA
 
 }
