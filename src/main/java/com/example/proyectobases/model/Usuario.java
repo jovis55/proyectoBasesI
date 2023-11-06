@@ -4,6 +4,7 @@ package com.example.proyectobases.model;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS )
 @Getter
 @Setter
-//@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario implements Serializable {
     @Id
