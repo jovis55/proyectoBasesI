@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-
+@ToString
 public class EstudianteEvaluacion implements Serializable {
 
     @Id
