@@ -33,6 +33,9 @@ public class Estudiante extends Usuario implements Serializable {
     @OneToMany(mappedBy = "id_usuario")
     private List<EstudianteEvaluacion> estudianteEvaluaciones;
 
+    @OneToMany(mappedBy = "estudiante")
+    private List<RespuestaEstudiante> respuestaEstudianteList;
+
 
 
 

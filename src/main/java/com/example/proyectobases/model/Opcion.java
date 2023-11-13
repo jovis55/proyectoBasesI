@@ -30,4 +30,7 @@ public class Opcion implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private MultipleRespuesta multipleRespuesta;
+
+    @OneToMany(mappedBy = "respuestaOpcion")
+    private List<RespuestaEstudiante> respuestaEstudiantes;
 }

@@ -46,4 +46,8 @@ public class Pregunta {
 
     @OneToMany(mappedBy = "pregunta")
     private List<BancoPreguntas> bancoPreguntasList;
+
+    @OneToMany(mappedBy = "pregunta")
+    private List<RespuestaEstudiante> respuestaEstudianteList;
+
 }

@@ -24,6 +24,7 @@ public class EstudianteEvaluacion implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="codigo")
     private int codigo;
 
     @ManyToOne
