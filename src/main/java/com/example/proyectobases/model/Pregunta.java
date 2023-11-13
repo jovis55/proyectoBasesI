@@ -29,7 +29,7 @@ public class Pregunta {
     private String enunciado;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tema", length = 10, nullable = false)
+    @Column(name = "tema", length = 50, nullable = false)
     private Tema tema;
 
     @Column(name="puntosPregunta", nullable = false)

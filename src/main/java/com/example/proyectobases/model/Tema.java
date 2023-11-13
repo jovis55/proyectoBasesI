@@ -8,8 +8,6 @@ import lombok.Setter;
 import java.util.List;
 public enum Tema {
 
-    BIOLOGIA,
-    MATEMATICAS,
-    HISTORIA
+    BIOLOGIA, MATEMATICAS,HISTORIA,ARTE,LENGUAJE,GEOMETRIA, ASTRONOMIA, QUIMICA, CIENCIAS, GEOGRAFIA
 
 }

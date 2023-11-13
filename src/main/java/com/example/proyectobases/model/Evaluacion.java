@@ -18,7 +18,7 @@ public class Evaluacion {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", length = 10, nullable = false)
+    @Column( length = 10, nullable = false)
     private int id;
 
     @Column(name="nombre", length = 100, nullable = false)
@@ -48,8 +48,6 @@ public class Evaluacion {
     @Column(name="cantidadIntentos", nullable = false)
     private int cantidadIntentos;
 
-    @Column(name="calificacion", nullable = false)
-    private double calificacion;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipoEvaluacion", length = 10, nullable = false)

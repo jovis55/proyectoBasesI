@@ -27,9 +27,13 @@ public class EstudianteEvaluacion implements Serializable {
     private int codigo;
 
     @ManyToOne
-    private Estudiante estudiante;
+    @JoinColumn(name = "id_usuario")
+    private Estudiante id_usuario;
 
     @ManyToOne
     private Evaluacion evaluacion;
+
+    @Column(nullable = false)
+    private double calificacion;
 
 }

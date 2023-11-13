@@ -30,7 +30,7 @@ public class Estudiante extends Usuario implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Grupo grupo;
 
-    @OneToMany(mappedBy = "estudiante")
+    @OneToMany(mappedBy = "id_usuario")
     private List<EstudianteEvaluacion> estudianteEvaluaciones;
 
 
