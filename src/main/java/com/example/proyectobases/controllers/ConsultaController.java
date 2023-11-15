@@ -10,6 +10,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
@@ -17,6 +18,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,13 +42,12 @@ public class ConsultaController {
     private final EstudianteRepositorio estudianteRepositorio;
     private final EvaluacionRepositorio evaluacionRepositorio;
 
-
     @GetMapping("/generarPDF")
     public void generarPDF() {
         List<EstudianteEvaluacion> estudiantes = estudianteEvaluacionRepositorio.findAll();
 
         try {
-            Document document = new Document();
+            Document document = new Document(new Rectangle(1000,1000));
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Estudiantes-Notas.pdf"));
             document.open();
 
@@ -59,11 +60,13 @@ public class ConsultaController {
             // Genera una gráfica de barras
             JFreeChart chart = createBarChart(estudiantes);
 
+            chart.getCategoryPlot().getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+
             // Convierte la gráfica a una imagen en un array de bytes
             ByteArrayOutputStream chartImageStream = new ByteArrayOutputStream();
             ChartPanel chartPanel = new ChartPanel(chart);
-            chartPanel.setSize(new Dimension(700, 500));
-            ChartUtils.writeChartAsPNG(chartImageStream, chart, 700, 500);
+            chartPanel.setSize(new Dimension(800, 600));
+            ChartUtils.writeChartAsPNG(chartImageStream, chart, 800, 600);
 
             // Agrega la imagen de la gráfica al PDF
             Image image = Image.getInstance(chartImageStream.toByteArray());
@@ -128,7 +131,7 @@ public class ConsultaController {
                 "Evaluaciones",
                 "Puntaje",
                 dataset,
-                PlotOrientation.HORIZONTAL,
+                PlotOrientation.VERTICAL,
                 true,
                 true,
                 false);
