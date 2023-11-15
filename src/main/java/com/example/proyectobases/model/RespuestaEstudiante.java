@@ -20,14 +20,14 @@ public class RespuestaEstudiante implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", length = 10, nullable = false)
+    @Column(name = "id", length = 10)
     private int id;
 
-    @Column(name="respuesta", length = 100, nullable = false)
+    @Column(name="respuesta", length = 100)
     private boolean respuesta;
 
-    @Column(name="respuestaTexto", length = 100, nullable = false)
-    private boolean respuestaTexto;
+    @Column(name="respuestaTexto", length = 100)
+    private String respuestaTexto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Opcion respuestaOpcion;

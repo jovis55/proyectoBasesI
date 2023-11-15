@@ -162,7 +162,7 @@ VALUES
 INSERT INTO estudiante_evaluacion (id_usuario, evaluacion_id, calificacion)
 VALUES
     ('user5', 1,2.0),  -- Asociar 'Estudiante 5' a 'Evaluación 1'
-    ('user5', 2,2.0),  -- Asociar 'Estudiante 5' a 'Evaluación 2'
+    ('user5', 2,3.0),  -- Asociar 'Estudiante 5' a 'Evaluación 2'
     ('user6', 1,2.8),  -- Asociar 'Estudiante 6' a 'Evaluación 1'
     ('user7', 2,2.7),  -- Asociar 'Estudiante 7' a 'Evaluación 2'
     ('user8', 3,2.7),  -- Asociar 'Estudiante 8' a 'Evaluación 3'
@@ -238,7 +238,7 @@ VALUES
     (8, 3),
     (21,14),
     (22,17);
-/**
+
 -- Respuestas de los estudiantes a las preguntas de opción múltiple
 INSERT INTO respuesta_estudiante (respuesta_opcion_id, estudiante_id_usuario, pregunta_id)
 VALUES
@@ -251,7 +251,6 @@ VALUES
     (false, 'user5', 10),    -- Estudiante 5 responde incorrectamente la Pregunta 3
     (true, 'user8', 12);
 -- Respuestas de los estudiantes a las preguntas de texto
-INSERT INTO respuesta_estudiante (respuestaTexto, estudiante_id_usuario, pregunta_id)
+INSERT INTO respuesta_estudiante (respuesta_texto, estudiante_id_usuario, pregunta_id)
 VALUES
     ('23', 'user5', 11);   -- Estudiante 5 responde incorrectamente la Pregunta 3
-*/
