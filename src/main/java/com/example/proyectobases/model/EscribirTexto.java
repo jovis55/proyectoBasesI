@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 public class EscribirTexto extends Pregunta implements Serializable {

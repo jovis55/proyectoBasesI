@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Horario implements Serializable {
     @Id
     @EqualsAndHashCode.Include

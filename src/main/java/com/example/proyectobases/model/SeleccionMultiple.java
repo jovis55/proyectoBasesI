@@ -15,9 +15,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
-
-
 public class SeleccionMultiple extends Pregunta implements Serializable {
     @Column(name="cantidadOpciones", nullable = false)
     private int cantidadOpciones;

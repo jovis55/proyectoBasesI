@@ -112,11 +112,11 @@ VALUES (1, 1), (2, 2), (3, 3), (4, 4),
 -- Insertar registros en la tabla Evaluacion relacionados con los profesores
 INSERT INTO evaluacion (nombre, fecha_creacion, tiempo_limite, num_preguntas, hora_inicio, hora_fin, valor_porcentual, puntaje_aprobacion, cantidad_intentos, tipo_evaluacion, tema, profesor_id_usuario)
 VALUES
-    ('Evaluación 1', '2023-01-01', '02:00:00', 5, '08:00:00', '10:00:00', 30.0, 70.0, 3, 1, 1, '1234567890'),
-    ('Evaluación 2', '2023-02-01', '01:30:00', 8, '09:00:00', '10:30:00', 20.0, 60.0, 2, 1, 1, '9876543210'),
-    ('Evaluación 3', '2023-03-01', '02:30:00', 12, '10:00:00', '12:30:00', 40.0, 75.0, 4, 1, 1, '4567890123'),
-    ('Evaluación 4', '2023-04-01', '02:30:00', 15, '08:30:00', '11:00:00', 50.0, 80.0, 5, 2, 2, 'user9'),
-    ('Evaluación 5', '2023-05-01', '02:00:00', 12, '09:30:00', '11:30:00', 40.0, 75.0, 4, 2, 2, 'user10');
+    ('Evaluación 1', '2023-01-01', '02:00:00', 5, '08:00:00', '10:00:00', 30.0, 3.0, 3, 1, 1, '1234567890'),
+    ('Evaluación 2', '2023-02-01', '01:30:00', 8, '09:00:00', '10:30:00', 20.0, 3.0, 2, 1, 1, '9876543210'),
+    ('Evaluación 3', '2023-03-01', '02:30:00', 12, '10:00:00', '12:30:00', 40.0, 3.0, 4, 1, 1, '4567890123'),
+    ('Evaluación 4', '2023-04-01', '02:30:00', 15, '08:30:00', '11:00:00', 50.0, 3.0, 5, 2, 2, 'user9'),
+    ('Evaluación 5', '2023-05-01', '02:00:00', 12, '09:30:00', '11:30:00', 40.0, 3.0, 4, 2, 2, 'user10');
 
 INSERT INTO pregunta (enunciado, fecha_creacion, puntos_pregunta, tema, visibilidad, evaluacion_id, profesor_id_usuario)
 VALUES
@@ -159,10 +159,10 @@ VALUES
     ('Banco de preguntas de Geometría', '2023-11-24', 'Banco de Geometría', 1, 6, 'user14');
 
 -- Insertar registros en la tabla EstudianteEvaluacion para relacionar estudiantes y evaluaciones
-INSERT INTO estudiante_evaluacion (id_usuario, evaluacion_id, calificacion)
+INSERT INTO estudiante_evaluacion (estudiante_id_usuario, evaluacion_id, calificacion)
 VALUES
-    ('user5', 1,2.0),  -- Asociar 'Estudiante 5' a 'Evaluación 1'
-    ('user5', 2,3.0),  -- Asociar 'Estudiante 5' a 'Evaluación 2'
+    ('user5', 1,4.0),  -- Asociar 'Estudiante 5' a 'Evaluación 1'
+    ('user5', 2,3.1),  -- Asociar 'Estudiante 5' a 'Evaluación 2'
     ('user6', 1,2.8),  -- Asociar 'Estudiante 6' a 'Evaluación 1'
     ('user7', 2,2.7),  -- Asociar 'Estudiante 7' a 'Evaluación 2'
     ('user8', 3,2.7),  -- Asociar 'Estudiante 8' a 'Evaluación 3'

@@ -13,9 +13,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
-
-
 public class UnicaRespuesta extends SeleccionMultiple implements Serializable {
 
     @OneToOne

@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Evaluacion {
     @Id
     @EqualsAndHashCode.Include

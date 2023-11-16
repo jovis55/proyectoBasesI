@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 
