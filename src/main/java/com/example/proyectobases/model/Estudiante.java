@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idUsuario")
 
 public class Estudiante extends Usuario implements Serializable {
@@ -30,7 +29,7 @@ public class Estudiante extends Usuario implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Grupo grupo;
 
-    @OneToMany(mappedBy = "id_usuario")
+    @OneToMany(mappedBy = "estudiante")
     private List<EstudianteEvaluacion> estudianteEvaluaciones;
 
     @OneToMany(mappedBy = "estudiante")

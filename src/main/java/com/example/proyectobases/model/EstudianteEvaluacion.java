@@ -18,7 +18,6 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@ToString
 public class EstudianteEvaluacion implements Serializable {
 
     @Id
@@ -28,8 +27,7 @@ public class EstudianteEvaluacion implements Serializable {
     private int codigo;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Estudiante id_usuario;
+    private Estudiante estudiante;
 
     @ManyToOne
     private Evaluacion evaluacion;
