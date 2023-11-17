@@ -1,16 +1,12 @@
 package com.example.proyectobases.controllers;
 
-import com.example.proyectobases.interfaces.ConsultaRepo;
-import com.example.proyectobases.interfaces.EstudianteEvaluacionRepositorio;
-import com.example.proyectobases.interfaces.EstudianteRepositorio;
-import com.example.proyectobases.interfaces.EvaluacionRepositorio;
-import com.example.proyectobases.model.Estudiante;
-import com.example.proyectobases.model.EstudianteEvaluacion;
-import com.example.proyectobases.model.Evaluacion;
+import com.example.proyectobases.interfaces.*;
+import com.example.proyectobases.model.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -52,6 +48,8 @@ public class ConsultaController {
     private final EstudianteEvaluacionRepositorio estudianteEvaluacionRepositorio;
     private final EstudianteRepositorio estudianteRepositorio;
     private final EvaluacionRepositorio evaluacionRepositorio;
+    private final ProfesorRepo profesorRepositorio;
+    private final UsuarioRepo usuarioRepositorio;
 
     @GetMapping("/promedioEstudiantes")
     public void generarPDF() {
@@ -210,6 +208,48 @@ public class ConsultaController {
             e.printStackTrace();
         }
     }
+
+    @GetMapping("/profesores/listar")
+    public void listarProfesores(){
+        List<Profesor> profesores = profesorRepositorio.findAll();
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
+
+        String nombreArchivo = "ProfesoresActivos.pdf";
+
+        try {
+            Document document = new Document(new Rectangle(1000, 1000));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            document.open();
+
+            // Título del informe
+            Paragraph title = new Paragraph("Profesores de la Institucion", new Font(Font.FontFamily.TIMES_ROMAN, 25));
+            document.add(title);
+
+            for (Profesor profe : profesores) {
+                for (Usuario user : usuarios){
+                    if (Objects.equals(user.getIdUsuario(), profe.getIdUsuario())) {
+                        Paragraph paragraph = new Paragraph(profe.getIdUsuario() + " --> " + user.getNombre());
+                        paragraph.setSpacingBefore(10);
+                        document.add(paragraph);
+                    }
+
+                }
+            }
+
+            // Tabla para mostrar estadísticas
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+            document.add(table);
+            document.close();
+            writer.close();
+
+
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     //Reporte de Estadísticas de Evaluación
     @GetMapping("/evaluacion/{codigo}")
