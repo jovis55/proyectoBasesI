@@ -53,7 +53,7 @@ public class ConsultaController {
     private final EstudianteRepositorio estudianteRepositorio;
     private final EvaluacionRepositorio evaluacionRepositorio;
 
-    @GetMapping("/generarPDF")
+    @GetMapping("/promedioEstudiantes")
     public void generarPDF() {
         List<EstudianteEvaluacion> estudiantes = estudianteEvaluacionRepositorio.findAll();
 
@@ -222,15 +222,16 @@ public class ConsultaController {
         for (EstudianteEvaluacion e : evaluaciones) {
 
         }
-        Map<String, String> statistics = Map.of(
-                "Nombre",  evaluaciones.get(0).getEvaluacion().getNombre(),
-                "Fecha de creacion", String.valueOf(evaluaciones.get(0).getEvaluacion().getFechaCreacion()),
-                "Tiempo Limite", String.valueOf( evaluaciones.get(0).getEvaluacion().getTiempoLimite()),
-                 "Numero de Preguntas",  String.valueOf(evaluaciones.get(0).getEvaluacion().getNumPreguntas()),
-                "Hora Inicio", String.valueOf(evaluaciones.get(0).getEvaluacion().getHoraInicio()),
-                "Hora fin", String.valueOf(evaluaciones.get(0).getEvaluacion().getHoraFin()),
-                "valor Porcentual", String.valueOf(evaluaciones.get(0).getEvaluacion().getPuntajeAprobacion()),
-                "Cantidad de intentos", String.valueOf(evaluaciones.get(0).getEvaluacion().getCantidadIntentos()));
+        Map<String, String> statistics = new LinkedHashMap<>();
+        statistics.put("Nombre",  evaluaciones.get(0).getEvaluacion().getNombre());
+        statistics.put("Fecha de creacion", String.valueOf(evaluaciones.get(0).getEvaluacion().getFechaCreacion()));
+        statistics.put("Tiempo Limite", String.valueOf(evaluaciones.get(0).getEvaluacion().getTiempoLimite()));
+        statistics.put("Numero de Preguntas",  String.valueOf(evaluaciones.get(0).getEvaluacion().getNumPreguntas()));
+        statistics.put("Hora Inicio", String.valueOf(evaluaciones.get(0).getEvaluacion().getHoraInicio()));
+        statistics.put("Hora fin", String.valueOf(evaluaciones.get(0).getEvaluacion().getHoraFin()));
+        statistics.put("valor Porcentual", String.valueOf(evaluaciones.get(0).getEvaluacion().getPuntajeAprobacion()));
+        statistics.put("Cantidad de intentos", String.valueOf(evaluaciones.get(0).getEvaluacion().getCantidadIntentos()));
+
         try {
             Document document = new Document(new Rectangle(1000, 1000));
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
@@ -267,27 +268,6 @@ public class ConsultaController {
             document.add(table);
             document.close();
             writer.close();
-
-
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @GetMapping("/generarEvaluacionPDF")
-    public void generarEvaluacionPDF() {
-        List<Evaluacion> evaluaciones = evaluacionRepositorio.findAll();
-
-        try {
-            Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("evaluacion_consultas.pdf"));
-            document.open();
-
-            for (Evaluacion e : evaluaciones) {
-                Paragraph paragraph = new Paragraph(e.getNombre());
-                document.add(paragraph);
-            }
 
 
         } catch (DocumentException | IOException e) {
@@ -375,8 +355,8 @@ public class ConsultaController {
 
     private Map<String, Double> calcularPromedioPorTema (List < EstudianteEvaluacion > estudianteEvaluaciones) {
 
-        Map<String, Double> totalNotasPorTema = new HashMap<>();
-        Map<String, Integer> cuentaEvaluacionesPorTema = new HashMap<>();
+        Map<String, Double> totalNotasPorTema = new LinkedHashMap<>();
+        Map<String, Integer> cuentaEvaluacionesPorTema = new LinkedHashMap<>();
         for (EstudianteEvaluacion estudianteEvaluacion : estudianteEvaluaciones) {
             Evaluacion evaluacion = estudianteEvaluacion.getEvaluacion();
             String tema = evaluacion.getTema().toString();
@@ -395,7 +375,7 @@ public class ConsultaController {
             }
 
             // Calcular el promedio por tema
-            Map<String, Double> promedioPorTema = new HashMap<>();
+            Map<String, Double> promedioPorTema = new LinkedHashMap<>();
             for (Map.Entry<String, Double> entry : totalNotasPorTema.entrySet()) {
                 String tema = entry.getKey();
                 double totalNotas = entry.getValue();
