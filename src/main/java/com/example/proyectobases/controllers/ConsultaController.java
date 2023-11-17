@@ -4,6 +4,7 @@ import com.example.proyectobases.interfaces.ConsultaRepo;
 import com.example.proyectobases.interfaces.EstudianteEvaluacionRepositorio;
 import com.example.proyectobases.interfaces.EstudianteRepositorio;
 import com.example.proyectobases.interfaces.EvaluacionRepositorio;
+import com.example.proyectobases.model.Estudiante;
 import com.example.proyectobases.model.EstudianteEvaluacion;
 import com.example.proyectobases.model.Evaluacion;
 import com.itextpdf.text.Document;
@@ -38,9 +39,8 @@ import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -59,17 +59,50 @@ public class ConsultaController {
 
         try {
             Document document = new Document(new Rectangle(1000, 1000));
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("Estudiantes-Notas.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("EstudiantesNotaPromedio.pdf"));
             document.open();
+
+            ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
 
             for (EstudianteEvaluacion estudianteEvaluacion : estudiantes) {
                 Paragraph paragraph = new Paragraph(
                         estudianteEvaluacion.getEstudiante().getNombre() + "  =" + estudianteEvaluacion.getCalificacion());
                 document.add(paragraph);
+                if (!listaEstudiantes.contains(estudianteEvaluacion.getEstudiante())){
+                    listaEstudiantes.add(estudianteEvaluacion.getEstudiante());
+                }
+            }
+
+            Map<String, Double> sumas = new LinkedHashMap<>();
+            Map<String, Integer> conteos = new LinkedHashMap<>();
+
+            for (EstudianteEvaluacion evaluacion : estudiantes) {
+                sumas.merge(evaluacion.getEstudiante().getIdUsuario(), evaluacion.getCalificacion(), Double::sum);
+                conteos.merge(evaluacion.getEstudiante().getIdUsuario(), 1, Integer::sum);
+            }
+
+            List<EstudianteEvaluacion> listaPromedio = new ArrayList<>();
+            int contador = 0;
+            for (Map.Entry<String, Double> entry : sumas.entrySet()) {
+                String codigoEstudiante = entry.getKey();
+                double sumaCalificaciones = entry.getValue();
+                int conteo = conteos.get(codigoEstudiante);
+                double promedio = sumaCalificaciones / conteo;
+
+                EstudianteEvaluacion estudianteEvaluacionNuevo = new EstudianteEvaluacion();
+                estudianteEvaluacionNuevo.setCodigo(contador);
+                estudianteEvaluacionNuevo.setEstudiante(listaEstudiantes.get(contador));
+                estudianteEvaluacionNuevo.setEvaluacion(null);
+                estudianteEvaluacionNuevo.setCalificacion(promedio);
+//                nuevaEvaluacion.setCodigoEstudiante(codigoEstudiante);
+//                nuevaEvaluacion.setCalificacion(promedio);
+
+                listaPromedio.add(estudianteEvaluacionNuevo);
+                contador++;
             }
 
             // Genera una gráfica de barras
-            JFreeChart chart = createBarChart(estudiantes, 1);
+            JFreeChart chart = createBarChart(listaPromedio, 1);
 
             chart.getCategoryPlot().getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
@@ -286,7 +319,7 @@ public class ConsultaController {
             case 1:
                 for (EstudianteEvaluacion e : estudiantes) {
                     // Agrega datos a la gráfica (por ejemplo, puntajes de evaluaciones)
-                    dataset.addValue(e.getCalificacion(), "Evaluación", e.getEstudiante().getNombre());
+                    dataset.addValue(e.getCalificacion(), "Evaluación", e.getEstudiante().getNombre()+"");
                 }
 
                 return ChartFactory.createBarChart(
